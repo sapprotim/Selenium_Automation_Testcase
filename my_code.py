@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
+
 driver = webdriver.Chrome()
 driver.maximize_window()
 file_path = r"D:\userinfo\login info.xlsx"
