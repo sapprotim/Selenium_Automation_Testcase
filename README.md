@@ -34,7 +34,7 @@ This repository contains automated regression tests covering every major role an
 ## Project Structure
 
 ```
-Testcase-1/
+AH_Automation_Testcase/
 ├── .github/
 │   └── workflows/
 │       └── python-package-conda.yml   # GitHub Actions CI pipeline
@@ -91,12 +91,9 @@ Testcase-1/
 │       ├── test_Medication_&_Specialised_Nutrition.py
 │       └── test_Report Condition.py
 │
-├── assets/
-│   └── style.css                      # HTML report styling
-├── reports/
-│   └── selenium_report.html           # Generated test report
-├── excelfile.py                        # Excel credential reader
-└── driver.py                           # Driver utility
+├── excelfile.py                        # Excel credential reader utility
+├── driver.py                           # Driver utility
+└── program management.py              # Standalone org-admin programme management tests
 ```
 
 ---
@@ -146,7 +143,19 @@ Tests read login credentials from an Excel file. Place `login info.xlsx` at:
 D:\userinfo\login info.xlsx
 ```
 
-The file should contain columns for username and password for each test role.
+The file must follow this row structure:
+
+| Row (0-indexed) | Role | Columns: Username (B), Password (C), OTP (D) |
+|-----------------|------|----------------------------------------------|
+| 0 | URL | App URL in column B |
+| 1 | Org Admin | org username, password, OTP |
+| 2 | Facility Admin | facility username, password, OTP |
+| 3 | Department Admin | dept username, password, OTP |
+| 4 | STM1 / Clinician | stm1 username, password, OTP |
+| 5 | STM2 | stm2 username, password, OTP |
+| 6 | User/Link | user username, password, OTP |
+
+> **Security note:** No credentials are committed to the repository. All test files read credentials at runtime from the local Excel file. Never hardcode usernames, passwords, or OTPs directly in test files.
 
 ---
 
@@ -196,4 +205,4 @@ The repository uses **GitHub Actions** (`.github/workflows/python-package-conda.
 
 ## Credentials
 
-Test credentials are **not** committed to the repository. The `excelfile.py` utility reads them at runtime from the local Excel file at `D:\userinfo\login info.xlsx`. Make sure this file exists before running the tests locally.
+Test credentials are **not** committed to the repository. The `excelfile.py` utility and each test fixture read them at runtime from the local Excel file at `D:\userinfo\login info.xlsx`. Make sure this file exists and is correctly populated before running the tests locally.

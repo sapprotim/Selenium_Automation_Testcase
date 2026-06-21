@@ -3,19 +3,25 @@ import time
 from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import pandas as pd
 import os
 
 @pytest.fixture(scope="module")
 def org_login():
     driver = webdriver.Chrome()
     driver.maximize_window()
-    driver.get("https://hpb-dev.connectedlife.io/#/login")
+    file_path = r"D:\userinfo\login info.xlsx"
+    df = pd.read_excel(file_path)
+    url = df.iloc[0, 1]
+    org_userid = df.iloc[1, 1]
+    org_pass = df.iloc[1, 2]
+    otp = df.iloc[1, 3]
+    driver.get(url)
     driver.implicitly_wait(100)
-    driver.find_element(By.XPATH, "//div[@class='login-form']//div[1]//label[1]").send_keys("clhadmins+dev@connectedlife.io")
-    driver.find_element(By.XPATH, "//div[@class='divisions']//div[2]//label[1]//input[1]").send_keys("OrgAdmin@123!")
+    driver.find_element(By.XPATH, "//div[@class='login-form']//div[1]//label[1]").send_keys(org_userid)
+    driver.find_element(By.XPATH, "//div[@class='divisions']//div[2]//label[1]//input[1]").send_keys(org_pass)
     driver.find_element(By.XPATH, "//input[@value='Sign In']").click()
     time.sleep(5)
-    otp = 111222
     driver.find_element(By.XPATH, "//input[@id='inp']").send_keys(otp)
     driver.find_element(By.XPATH, "//input[@value='Submit']").click()
     time.sleep(5)
