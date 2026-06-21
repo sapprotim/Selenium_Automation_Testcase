@@ -1,0 +1,29 @@
+# Credentials & secrets
+*.xlsx
+*.xls
+*.env
+*.env.*
+secrets.*
+credentials.*
+login*info*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Screenshots & reports (local test output)
+screenshots/
+reports/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
